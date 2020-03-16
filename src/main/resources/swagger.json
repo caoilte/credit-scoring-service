@@ -1,0 +1,113 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "ClearScore Technical Test Microservice",
+    "version": "1.0",
+    "title": "ClearScore Technical Test"
+  },
+  "host": "localhost",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/creditcards": {
+      "post": {
+        "summary": "Find credit cards user is eligible for",
+        "description": "Returns a list of credit cards that our partners have indicated the user is eligible to apply for.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreditCardRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A sorted list of credit cards the user is eligible to apply for.",
+            "schema": {
+              "$ref": "#/definitions/CreditCardResponse"
+            }
+          },
+          "400": {
+            "description": "The request contained invalid parameters"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreditCardRequest": {
+      "type": "object",
+      "required": [
+        "name",
+        "creditScore",
+        "salary"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "John Smith",
+          "description": "Users full name"
+        },
+        "creditScore": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Credit score between 0 and 700",
+          "minimum": 0,
+          "maximum": 700
+        },
+        "salary": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Users annual salary",
+          "minimum": 0
+        }
+      }
+    },
+    "CreditCardResponse": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CreditCard"
+      }
+    },
+    "CreditCard": {
+      "type": "object",
+      "required": [
+        "apr",
+        "name",
+        "provider",
+        "cardScore"
+      ],
+      "properties": {
+        "provider": {
+          "type": "string",
+          "description": "Name of the partner that provides the credit card"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the credit card product"
+        },
+        "apr": {
+          "type": "number",
+          "format": "double",
+          "description": "Annual percentage rate for the card"
+        },
+        "cardScore": {
+          "type": "number",
+          "format": "double",
+          "description": "The score given to the credit card based on the scoring algorithm"
+        }
+      }
+    }
+  }
+}

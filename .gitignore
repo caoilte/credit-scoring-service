@@ -1,0 +1,9 @@
+.idea/
+target/
+project/project
+server/native/
+.bloop/
+.metals/
+.floo
+native/
+*.code-workspace

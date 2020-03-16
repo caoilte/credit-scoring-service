@@ -1,0 +1,12 @@
+[
+  {
+    "cardName": "SuperSaver Card",
+    "apr": 21.4,
+    "eligibility": 6.3
+  },
+  {
+    "cardName": "SuperSpender Card",
+    "apr": 19.2,
+    "eligibility": 5.0
+  }
+]
